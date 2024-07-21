@@ -1,0 +1,29 @@
+name: build
+run-name: ${{ github.actor }} pushed a change
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-java@v4.2.1
+        with:
+          distribution: zulu
+          java-version: 21
+          cache: gradle
+      - uses: actions/cache@v4.0.2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - timeout-minutes: 15
+        run: ./gradlew check

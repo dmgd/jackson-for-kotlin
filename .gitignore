@@ -1,0 +1,13 @@
+/.gradle/
+/.idea/
+/.kotlin/
+
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+.DS_Store
