@@ -88,6 +88,9 @@ distributions {
     main {
         contents {
             from(layout.buildDirectory.dir("repos/bundles"))
+            eachFile {
+                path = path.substringAfter("/")
+            }
         }
     }
 }
